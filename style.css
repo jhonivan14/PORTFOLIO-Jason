@@ -1,0 +1,1149 @@
+      /* Reset and base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+/* Apply a smooth fade-in animation on page load */
+body {
+    background-color: #f4f4f4;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 1.5s ease-in-out; /* Fade-in animation for body */
+    
+    /* Background image */
+    background-image: url('background.jpg'); /* Replace with your image URL */
+    background-size: cover; /* Make sure the image covers the entire body */
+    background-position: center; /* Center the image */
+    background-attachment: fixed;
+    position: relative; /* Keep positioning for stacking content */
+    
+}
+
+/* Pseudo-element for the blur effect */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('background.jpg'); /* Same background image */
+    background-size: cover;
+    background-position: center;
+    filter: blur(6px); /* Apply the blur to the background */
+    z-index: -1; /* Make sure the blur is behind the content */
+
+    
+}
+
+
+/* Content above the blurred background */
+main {
+    position: relative; /* Ensure content is above the blurred background */
+    z-index: 1; /* Keep content in front */
+    background-attachment: fixed;
+}
+
+
+
+/* Fade-in animation for body */
+@keyframes fadeIn {
+    0% {
+        opacity: 0; /* Initially invisible */
+    }
+    100% {
+        opacity: 1; /* Fully visible at the end */
+    }
+}
+
+html {
+    scroll-behavior: smooth; /* Smooth scroll for anchors and sections */
+}
+
+        /* Header and Navigation */
+        header {
+            background: #000641;
+            color: #fff;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        nav {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            cursor: default;
+            user-select: none;
+        }
+        .logo span {
+            color: #fc04a9;
+        }
+
+        /* Nav links */
+        ul.navbar {
+            list-style: none;
+            display: flex;
+            gap: 1.8rem;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+        ul.navbar li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            border-bottom: 3px solid transparent;
+            transition: color 0.3s ease, border-bottom-color 0.3s ease;
+            position: relative;
+        }
+        ul.navbar li a:hover,
+        ul.navbar li a.active {
+            color: #fc04a9;
+            border-bottom-color: #fc04a9;
+        }
+
+        ul.navbar li a::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: -3px;
+            left: 0;
+            background-color: #fc04a9;
+            transition: width 0.3s ease;
+        }
+        ul.navbar li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hamburger menu - hidden on large screens */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            width: 28px;
+            user-select: none;
+            z-index: 1500;
+        }
+        .hamburger div {
+            height: 3px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.4s ease;
+            transform-origin: 4px 2px;
+        }
+
+        /* Hamburger animation when active */
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Responsive nav */
+        @media (max-width: 768px) {
+            ul.navbar {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: #000641;
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1rem 0;
+                transform: translateY(-120%);
+                opacity: 0;
+                pointer-events: none;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+                transition:
+                    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                    opacity 0.4s ease 0.1s;
+            }
+
+            ul.navbar.show {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            /* Animate menu items individually on open */
+            ul.navbar.show li {
+                animation: slideFadeIn 0.4s ease forwards;
+            }
+            ul.navbar.show li:nth-child(1) {
+                animation-delay: 0.1s;
+            }
+            ul.navbar.show li:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+            ul.navbar.show li:nth-child(3) {
+                animation-delay: 0.3s;
+            }
+            ul.navbar.show li:nth-child(4) {
+                animation-delay: 0.4s;
+            }
+            ul.navbar.show li:nth-child(5) {
+                animation-delay: 0.5s;
+            }
+            ul.navbar.show li:nth-child(6) {
+                animation-delay: 0.6s;
+            }
+        }
+
+        @keyframes slideFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header text and circle container */
+        .content-container {
+            max-width: 1100px;
+            margin: 2rem auto 4rem;
+            text-align: center;
+            padding: 0 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+/* Text container */
+.text {
+    flex: 1 1 320px;
+    color: #000000;
+}
+
+/* Typing animation effect for the heading */
+.text h1 {
+    font-size: 2.9rem;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide the text that’s not yet typed */
+    border-right: 4px solid #fc04a9; /* Cursor effect */
+    width: 0; /* Initially, the width is 0 */
+    
+    /* Typing and cursor blinking animation */
+    animation: typing 3s steps(30) infinite, blink 0.75s step-end infinite; /* Loop typing and blinking */
+}
+
+/* Typing animation */
+@keyframes typing {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+/* Cursor blinking animation */
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+/* Cursor blinking animation */
+@keyframes blink {
+    0% {
+        border-color: transparent;
+    }
+    50% {
+        border-color: #fc04a9;
+    }
+    100% {
+        border-color: transparent;
+    }
+}
+
+/* Typing animation */
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.text span {
+    color: #fc04a9;
+}
+
+
+        .circle {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(380deg, #fc04a9, #03fdf9);
+            border-radius: 50%;
+            box-shadow: 0 0 90px #03fdf9, 0 0 40px #03fdf9;
+            flex-shrink: 0;
+            animation: pulseGlow 3s ease-in-out infinite alternate;
+        }
+        .circle span {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            background: #000641;
+            border-radius: 50%;
+            top: 15px;
+            left: 15px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circle span img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            user-select: none;
+            pointer-events: none;
+            animation: floatUpDown 6s ease-in-out infinite;
+        }
+
+        /* Glowing pulse animation for circle */
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 30px #03fdf9;
+            }
+            100% {
+                box-shadow: 0 0 90px #fc04a9;
+            }
+        }
+
+       
+        /* Footer */
+        footer {
+            background: #000641;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+            margin-top: auto;
+            user-select: none;
+        }
+        footer a {
+            color: #fc04a9;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #03fdf9;
+        }
+
+        /* Sections */
+        section {
+            display: none;
+        }
+
+        section.active {
+            display: block;
+        }
+
+/* About Section Design */
+#about {
+     background-color: #eef1f980;  /* Semi-transparent background with opacity */
+    padding: 3rem 2rem;  /* Adequate padding */
+    margin: 2rem auto;  /* Center section with margin */
+    max-width: 1100px;  /* Max width for larger screens */
+    border-radius: 10px;  /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  /* Soft shadow for depth */
+    text-align: center;  /* Centered text */
+    background-attachment: fixed;
+}
+
+#about h1 {
+    font-size: 2.5rem;  /* Large heading */
+    color: #000641;  /* Dark blue color */
+    font-weight: 700;  /* Bold font */
+    margin-bottom: 1.5rem;  /* Space below the heading */
+}
+
+/* About container (flex layout) */
+.about-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+/* About text */
+.about-text {
+    flex: 1 1 50%;
+    padding: 2rem;
+    text-align: left;
+}
+
+.about-text p {
+    font-size: 1.5rem;
+    color: #000000;  /* Dark gray color */
+    line-height: 1.6;  /* Line height for readability */
+    font-weight: 400;  /* Normal font weight */
+}
+
+/* About image */
+.about-image {
+    flex: 1 1 40%;
+    display: flex;
+    justify-content: center;
+}
+
+.about-image img {
+    max-width: 100%;
+    border-radius: 50%;  /* Circular image */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  /* Soft shadow */
+    object-fit: cover;  /* Ensure image covers its container */
+    transition: transform 0.3s ease;
+}
+
+/* Image hover effect */
+.about-image img:hover {
+    transform: scale(1.05);  /* Slight zoom effect */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    #about h1 {
+        font-size: 2rem;  /* Smaller header size */
+    }
+
+    .about-container {
+        flex-direction: column;  /* Stack items vertically on smaller screens */
+        align-items: center;  /* Center items */
+    }
+
+    .about-text {
+        flex: 1 1 100%;  /* Full width for text on mobile */
+        padding: 1rem;  /* Adjust padding */
+    }
+
+    .about-image {
+        flex: 1 1 100%;  /* Full width for image on mobile */
+    }
+}
+
+
+/* Expertise Section Design */
+#expertise {
+      background-color: rgba(178, 201, 255, 0.5);  /* Semi-transparent background with opacity */
+    padding: 3rem 2rem;  /* Adequate padding */
+    margin: 2rem auto;  /* Center section with margin */
+    max-width: 1100px;  /* Max width for larger screens */
+    border-radius: 10px;  /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  /* Soft shadow for depth */
+    text-align: center;  /* Centered text */
+}
+
+#expertise h1 {
+    font-size: 2.5rem;  /* Large heading */
+    color: #000641;  /* Dark blue color */
+    font-weight: 700;  /* Bold font */
+    margin-bottom: 1.5rem;  /* Space below the heading */
+}
+
+/* Expertise container for the items */
+.expertise-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+/* Each expertise item styling */
+.expertise-item {
+    background: #f9f9f9;  /* Light gray background */
+    border-radius: 10px;  /* Rounded corners for the card */
+    padding: 2rem;
+    flex: 1 1 250px;  /* Flex properties to make the items responsive */
+    max-width: 300px;  /* Max width for each item */
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Soft shadow for the item */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;  /* Hover effects */
+}
+
+/* Hover effect on expertise items */
+.expertise-item:hover {
+    transform: translateY(-10px);  /* Lift effect */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);  /* Stronger shadow */
+}
+
+/* Icons styling */
+.expertise-item i {
+    font-size: 3rem;
+    color: #fc04a9;  /* Matching color for the icon */
+    margin-bottom: 1rem;  /* Space below the icon */
+}
+
+/* Heading for expertise items */
+.expertise-item h2 {
+    font-size: 1.5rem;
+    color: #333333;  /* Dark gray for heading */
+    margin-bottom: 1rem;  /* Space below the heading */
+}
+
+/* Paragraph for expertise description */
+.expertise-item p {
+    font-size: 1rem;
+    color: #666666;  /* Lighter gray for the paragraph */
+    line-height: 1.6;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    #expertise h1 {
+        font-size: 2rem;  /* Smaller header size */
+    }
+
+    .expertise-container {
+        flex-direction: column;  /* Stack items vertically on small screens */
+        align-items: center;  /* Center items */
+    }
+
+    .expertise-item {
+        max-width: 90%;  /* Take up more space on smaller screens */
+        margin-bottom: 2rem;  /* Space between items */
+    }
+}
+
+/* Education Section Design */
+#education {
+      background-color: rgba(178, 201, 255, 0.5);  /* Semi-transparent background with opacity */
+    padding: 3rem 2rem;  /* Adequate padding */
+    margin: 2rem auto;  /* Center section with margin */
+    max-width: 1100px;  /* Max width for larger screens */
+    border-radius: 10px;  /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  /* Soft shadow for depth */
+    text-align: center;  /* Centered text */
+}
+
+#education h1 {
+    font-size: 2.5rem;  /* Large heading */
+    color: #000641;  /* Dark blue color */
+    font-weight: 700;  /* Bold font */
+    margin-bottom: 2rem;  /* Space below the heading */
+}
+
+/* Education container */
+.education-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+/* Each education item styling */
+.education-item {
+    background: #f9f9f9;  /* Light gray background */
+    border-radius: 10px;  /* Rounded corners for the card */
+    padding: 2rem;
+    flex: 1 1 250px;  /* Flex properties to make the items responsive */
+    max-width: 300px;  /* Max width for each item */
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Soft shadow for the item */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;  /* Hover effects */
+}
+
+/* Hover effect on education items */
+.education-item:hover {
+    transform: translateY(-10px);  /* Lift effect */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);  /* Stronger shadow */
+}
+
+/* Icons styling */
+.education-item i {
+    font-size: 3rem;
+    color: #fc04a9;  /* Matching color for the icon */
+    margin-bottom: 1rem;  /* Space below the icon */
+}
+
+/* Heading for education items */
+.education-item h2 {
+    font-size: 1.5rem;
+    color: #333333;  /* Dark gray for heading */
+    margin-bottom: 1rem;  /* Space below the heading */
+}
+
+/* Paragraph for education description */
+.education-item p {
+    font-size: 1rem;
+    color: #666666;  /* Lighter gray for the paragraph */
+    line-height: 1.6;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    #education h1 {
+        font-size: 2rem;  /* Smaller header size for mobile */
+    }
+
+    .education-container {
+        flex-direction: column;  /* Stack items vertically on small screens */
+        align-items: center;  /* Center items */
+    }
+
+    .education-item {
+        max-width: 90%;  /* Take up more space on smaller screens */
+        margin-bottom: 2rem;  /* Space between items */
+    }
+}
+
+/* Tools Section Design */
+#tools {
+      background-color: rgba(178, 201, 255, 0.5);  /* Semi-transparent background with opacity */
+    padding: 3rem 2rem;  /* Adequate padding */
+    margin: 2rem auto;  /* Center section with margin */
+    max-width: 1100px;  /* Max width for larger screens */
+    border-radius: 10px;  /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  /* Soft shadow for depth */
+    text-align: center;  /* Centered text */
+}
+
+#tools h1 {
+    font-size: 2.5rem;  /* Large heading */
+    color: #000641;  /* Dark blue color */
+    font-weight: 700;  /* Bold font */
+    margin-bottom: 2rem;  /* Space below the heading */
+}
+
+/* Tools container for the items */
+.tools-container, .other-tools-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+/* Each tool item styling */
+.tools-item {
+    background: #f9f9f9;  /* Light gray background */
+    border-radius: 10px;  /* Rounded corners for the card */
+    padding: 2rem;
+    flex: 1 1 200px;  /* Flex properties to make the items responsive */
+    max-width: 200px;  /* Max width for each item */
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Soft shadow for the item */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;  /* Hover effects */
+}
+
+/* Hover effect on tools items */
+.tools-item:hover {
+    transform: translateY(-10px);  /* Lift effect */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);  /* Stronger shadow */
+}
+
+/* Icons styling */
+.tools-item i {
+    font-size: 3rem;
+    color: #fc04a9;  /* Matching color for the icon */
+    margin-bottom: 1rem;  /* Space below the icon */
+}
+
+/* Heading for tools items */
+.tools-item h2 {
+    font-size: 1.2rem;
+    color: #333333;  /* Dark gray for heading */
+    margin-bottom: 1rem;  /* Space below the heading */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    #tools h1 {
+        font-size: 2rem;  /* Smaller header size for mobile */
+    }
+
+    .tools-container, .other-tools-container {
+        flex-direction: column;  /* Stack items vertically on small screens */
+        align-items: center;  /* Center items */
+    }
+
+    .tools-item {
+        max-width: 90%;  /* Take up more space on smaller screens */
+        margin-bottom: 2rem;  /* Space between items */
+    }
+}
+
+/* Work History Section Design */
+#work-history {
+     background-color: rgba(178, 201, 255, 0.5);  /* Semi-transparent background with opacity */
+    padding: 3rem 2rem;  /* Adequate padding */
+    margin: 2rem auto;  /* Center section with margin */
+    max-width: 1100px;  /* Max width for larger screens */
+    border-radius: 10px;  /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  /* Soft shadow for depth */
+    text-align: center;  /* Centered text */
+}
+
+#work-history h1 {
+    font-size: 2.5rem;  /* Large heading */
+    color: #000641;  /* Dark blue color */
+    font-weight: 700;  /* Bold font */
+    margin-bottom: 2rem;  /* Space below the heading */
+}
+
+/* Job container */
+.job {
+    background: #f9f9f9;  /* Light gray background */
+    border-radius: 10px;  /* Rounded corners for the card */
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Soft shadow for the item */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;  /* Hover effects */
+}
+
+/* Hover effect on job items */
+.job:hover {
+    transform: translateY(-10px);  /* Lift effect */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);  /* Stronger shadow */
+}
+
+/* Icons styling */
+.job i {
+    font-size: 3rem;
+    color: #fc04a9;  /* Matching color for the icon */
+    margin-bottom: 1rem;  /* Space below the icon */
+}
+
+/* Job title styling */
+.job h2 {
+    font-size: 1.5rem;
+    color: #333333;  /* Dark gray for title */
+    margin-bottom: 0.5rem;  /* Space below the title */
+}
+
+/* Job description styling */
+.job p {
+    font-size: 1rem;
+    color: #666666;  /* Lighter gray for description */
+    line-height: 1.6;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    #work-history h1 {
+        font-size: 2rem;  /* Smaller header size for mobile */
+    }
+
+    .job {
+        padding: 1.5rem;  /* Adjust padding for smaller screens */
+    }
+
+    .job i {
+        font-size: 2.5rem;  /* Smaller icons for mobile */
+    }
+}
+
+/* Footer Design */
+footer {
+    background-color: #000641;  /* Dark blue background */
+    color: #ffffff;  /* White text */
+    text-align: center;  /* Centered text */
+    font-size: 1rem;  /* Default font size */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Soft shadow for depth */
+}
+
+footer p {
+    margin: 0.5rem 0;  /* Space between paragraphs */
+    font-weight: 400;  /* Normal weight for the text */
+}
+
+footer a {
+    color: #fc04a9;  /* Pink color for links */
+    text-decoration: none;  /* Remove underline */
+    transition: color 0.3s ease;  /* Smooth color transition */
+}
+
+footer a:hover {
+    color: #03fdf9;  /* Light blue color on hover */
+    text-decoration: underline;  /* Underline effect on hover */
+}
+
+/* Responsive Design for Footer */
+@media (max-width: 768px) {
+    footer {
+        padding: 1.5rem 1rem;  /* Adjust padding for smaller screens */
+    }
+
+    footer p {
+        font-size: 0.5rem;  /* Adjust font size for mobile */
+    }
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    margin-top: 60px;
+    background: linear-gradient(#fc04a9, #03fdf9);
+    text-decoration: none;
+    color: #000000;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    border-radius: 5px;  /* Rounded corners */
+    text-align: center;
+    transition: all 0.3s ease;  /* Smooth transition for hover effects */
+   
+}
+
+/* Hover effect */
+.btn:hover {
+    background: linear-gradient(#03fdf9, #fc04a9);  /* Inverse gradient on hover */
+    transform: scale(1.1);  /* Slightly increase the button size */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);  /* Add a shadow to give it a floating effect */
+    color: #ffffff;  /* Change text color on hover */
+}
+
+#projects {
+    display: none;
+    
+}
+
+#projects {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #f8f8f8;
+}
+#projects h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #000000;
+    font-weight: bold;
+}
+
+#projects h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #fc04a9;
+    font-weight: bold;
+}
+
+/* Flex container for the video section */
+.realstate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.realstate h2{
+ -webkit-text-stroke: 1px rgb(0, 0, 0);
+}
+
+/* Container for both videos */
+.video-container {
+    display: flex;
+    justify-content: center; /* Center the videos horizontally */
+    gap: 20px; /* Space between the videos */
+    flex-wrap: wrap; /* Allow videos to stack on smaller screens */
+}
+
+/* Individual video styling */
+.video {
+    max-width: 30%; /* Make the video responsive */
+    width: 48%; /* Each video takes up 48% of the container */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* On smaller screens, stack the videos vertically */
+    .video-container {
+        flex-direction: column;
+        align-items: center; /* Center videos vertically */
+    }
+
+    .video {
+        width: 90%; /* Videos take up most of the screen width */
+        margin-bottom: 20px; /* Space between stacked videos */
+    }
+
+    /* Adjust heading for smaller screens */
+    #projects h2 {
+        font-size: 1.5rem;
+        
+    }
+}
+
+/* Styling for the thumbnail section */
+.thumbnail {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #eae6e6;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+/* Heading styling */
+.thumbnail h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+    text-transform: uppercase;
+    -webkit-text-stroke: 1px rgb(0, 0, 0);
+}
+
+/* Carousel styling */
+#demo {
+    max-width: 80%;        /* Limit carousel width to 80% of the screen */
+    width: auto;           /* Auto adjust to content */
+    margin: 0 auto;        /* Center the carousel horizontally */
+}
+
+/* Make carousel images responsive */
+.carousel-inner img {
+    width: 100%;           /* Make the images scale with the carousel */
+    height: auto;          /* Maintain aspect ratio */
+    border-radius: 10px;   /* Round the corners of the images */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Add a soft shadow to images */
+}
+
+/* Styling for carousel control buttons */
+.carousel-control-prev, .carousel-control-next {
+    background-color: transparent;  /* Remove background color */
+    color: #fff;  /* White arrow color */
+    font-weight: bold;  /* Make the arrow icons bold */
+    border-radius: 50%; /* Round the control buttons */
+    width: 40px; /* Set the button size */
+    height: 40px; /* Set the button size */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styling for the previous and next arrows */
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    margin-top: 550px;
+    background-color: #000000; /* White color for the arrows */
+    width: 70px;
+    height: 40px;
+  
+}
+
+/* Hover effect for carousel control buttons */
+.carousel-control-prev:hover, .carousel-control-next:hover {
+    background-color: rgba(255, 246, 246, 0.8); /* Darken the background on hover */
+
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+/* Indicators (dots) styling */
+.carousel-indicators button {
+    background-color: #fc04a9;  /* Pink color for the dots */
+    border-radius: 10%;  /* Round the dots */
+    width:  20px;
+    height: 20px;
+}
+
+.carousel-indicators .active {
+    background-color: #000000; /* Blue color for the active dot */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    #demo {
+        width: 90%;  /* Make the carousel 90% width on smaller screens */
+    }
+
+    .thumbnail h2 {
+        font-size: 2rem; /* Adjust heading size on mobile */
+    }
+}
+
+
+/* Container styling for the books section */
+.books {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #f8f8f8;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.books h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+    text-transform: uppercase;
+     -webkit-text-stroke: 1px rgb(0, 0, 0);
+}
+
+/* Book images container */
+.book-images {
+    display: flex;
+    justify-content: center; /* Center the images horizontally */
+    gap: 20px; /* Space between the images */
+    flex-wrap: wrap; /* Allow images to stack on smaller screens */
+}
+
+/* Individual image styling */
+.book-images img {
+    max-width: 20%;
+    height: auto;
+    border-radius: 8px; /* Round the corners of the images */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add a soft shadow around the images */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+/* Hover effect for images */
+.book-images img:hover {
+    transform: scale(1.05); /* Slightly enlarge the image on hover */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .book-images {
+        flex-direction: column; /* Stack images vertically on small screens */
+        align-items: center; /* Center the images */
+    }
+
+    .book-images img {
+        width: 80%; /* Make the images smaller on mobile */
+        margin-bottom: 20px; /* Space between stacked images */
+    }
+
+    .books h2 {
+        font-size: 2rem; /* Adjust heading size on mobile */
+    }
+}
+
+/* Styling for the Church section */
+.church {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #d4c6c6;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.church h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+    text-transform: uppercase;
+     -webkit-text-stroke: 1px rgb(0, 0, 0);
+}
+
+/* Styling for the images container */
+.church-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Auto-layout with responsive columns */
+    gap: 20px; /* Space between images */
+    justify-items: center; /* Center the images */
+}
+
+/* Styling for individual images */
+.church-images img {
+    width: 100%;
+    max-width: 100%; /* Ensure images are responsive */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Add shadow around images */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+/* Hover effect on images */
+.church-images img:hover {
+    transform: scale(1.05); /* Slight zoom effect */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .church h2 {
+        font-size: 2rem; /* Adjust heading size on mobile */
+    }
+
+    .church-images {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Smaller columns on mobile */
+    }
+}
+
+/* Styling for the Executive Pests section */
+.executive {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #b3daf3;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.executive h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+    text-transform: uppercase;
+     -webkit-text-stroke: 1px rgb(0, 0, 0);
+}
+
+/* Container for the images */
+.exe-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Auto-adjusting grid layout */
+    gap: 20px; /* Space between images */
+    justify-items: center; /* Center images within their grid cell */
+    margin-top: 20px;
+}
+
+/* Styling for the images */
+.exe-images img {
+    width: 100%; /* Make the images responsive */
+    height: auto;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow around images */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Hover effect for images */
+.exe-images img:hover {
+    transform: scale(1.55); /* Slight zoom effect on hover */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .exe-images {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Make the images fit better on mobile */
+    }
+
+    .executive h2 {
+        font-size: 2rem; /* Reduce heading size on mobile */
+    }
+}
